@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Barcode Scanning</title>
+
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/scanning.js"></script>
+
+    <script>
+        //scan-input handler
+        $(document).on("keypress", "#scan-input", function (e) {
+            var val = $(this).val();
+
+            if (e.keyCode === 13) { //enter pressed
+                var scan = {
+                    text: val,
+                    timestamp: new Date().getTime()
+                };
+                addScan(scan);
+                console.log(scans);
+                $("#scan-input").val("");
+            } else if (e.keyCode == 9) {  //tab pressed
+                e.preventDefault();
+            }
+        });
+
+        $(document).on("click", "*", function (e) {
+            $("#scan-input").focus();
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <input id="scan-input" type="text" autofocus />
+    </div>
+</body>
+</html>
