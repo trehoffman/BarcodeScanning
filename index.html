@@ -32,6 +32,17 @@
         $(function () {
             //load scans from local storage
             loadScans();
+
+            //initialize new worker
+            var pingWorker = new Worker('js/ping_worker.js');
+
+            //create worker listener
+            pingWorker.addEventListener('message', function (event) {
+                console.log('Are we online?', event.data);
+            }, false);
+
+            //start worker
+            pingWorker.postMessage("http://localhost:53889/index.html");
         });
     </script>
 </head>

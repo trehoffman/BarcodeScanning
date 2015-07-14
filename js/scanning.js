@@ -25,6 +25,7 @@ function setScansDone(value) {
 }
 
 function clearScans() {
+    console.log(clearScans);
     localforage.clear(function (err) {
         console.log("scans were cleared!");
         console.log(scans);
