@@ -1,4 +1,4 @@
-﻿function pingHost (host) {
+﻿function pingHost(host) {
     console.log("pingHost");
     var xhr = new XMLHttpRequest();
     xhr.open('GET', host, true);
