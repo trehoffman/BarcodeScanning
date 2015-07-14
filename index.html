@@ -4,6 +4,7 @@
     <title>Barcode Scanning</title>
 
     <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/localforage.js"></script>
     <script src="js/scanning.js"></script>
 
     <script>
@@ -27,11 +28,16 @@
         $(document).on("click", "*", function (e) {
             $("#scan-input").focus();
         });
+
+        $(function () {
+            //load scans from local storage
+            loadScans();
+        });
     </script>
 </head>
 <body>
     <div>
-        <input id="scan-input" type="text" autofocus />
+        <input id="scan-input" type="text" placeholder="scan here" autofocus />
     </div>
 </body>
 </html>
