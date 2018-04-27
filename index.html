@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Barcode Scanning</title>
+	    <meta charset="utf-8" />
+    </head>
+    <body>
+        <div>
+            <input class="scan-input" type="text" placeholder="scan here" autofocus />
+        </div>
+        <div>
+            <h1>
+                Scan History
+            </h1>
+            <table class="scan-history">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Data</th>
+                        <th><button type="button" class="clear-scans">Clear</button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--POPULATE WITH SCAN HISTORY-->
+                </tbody>
+            </table>
+        </div>
+        <script src="js/localforage.js"></script>
+        <script src="js/scanner.js"></script>
+        <script>
+            var scanner = new Scanner();
+            scanner.init();
+        </script>
+    </body>
+</html>
