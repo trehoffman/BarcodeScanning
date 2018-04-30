@@ -8,7 +8,6 @@
 
     this.init = function () {
         var _scanner = this;
-        this.loadScans();
 
         this.scanner_inputs = document.querySelectorAll("input.scan-input");
         this.scanner_histories = document.querySelectorAll("table.scan-history tbody");
@@ -88,6 +87,8 @@
                 });
             }
         });
+
+        this.loadScans();
     };
 
     this.getContext = function () {
@@ -147,46 +148,38 @@
             }
         });
 
-        var scanner_histories = _this.scanner_histories;
-        scanner_histories.forEach(function (elem) {
-            elem.innerHTML = "";
+        var table_body = '';
+        _this.scans.forEach(function (scan, index) {
+            var d = new Date(scan.timestamp);
+            var timestamp = d.getFullYear() + '-' + d.getMonth().padLeft(2) + '-' + d.getDate().padLeft(2) + ' ' + d.getHours().padLeft(2) + ':' + d.getMinutes().padLeft(2) + ':' + d.getSeconds().padLeft(2) + '.' + d.getMilliseconds().padLeft(3);
+            table_body += '<tr>'
+                + '<td>' + timestamp + '</td>'
+                + '<td>' + scan.text + '</td>'
+                + '<td>' + '<button type="button" class="remove-scan" index="' + index + '">Remove</button>' + '</td>'
+                + '</tr>';
         });
 
-        _this.scans.forEach(function (scan, index) {
-            scanner_histories.forEach(function (elem) {
-                var d = new Date(scan.timestamp);
-                var timestamp = d.getFullYear() + '-' + d.getMonth().padLeft(2) + '-' + d.getDate().padLeft(2) + ' ' + d.getHours().padLeft(2) + ':' + d.getMinutes().padLeft(2) + ':' + d.getSeconds().padLeft(2) + '.' + d.getMilliseconds().padLeft(3);
-
-                elem.innerHTML += '<tr>'
-                    + '<td>' + timestamp + '</td>'
-                    + '<td>' + scan.text + '</td>'
-                    + '<td>' + '<button type="button" class="remove-scan" index="' + index + '">Remove</button>' + '</td>'
-                    + '</tr>';
-            });
+        _this.scanner_histories.forEach(function (elem) {
+            elem.innerHTML = table_body;
         });
     };
 
     this.loadScans = function () {
         var _this = this;
-        localforage.getItem("scans").then(function (value) {
-            console.log("loadScans done");
-            console.log(value);
-            if (!value) {
-                _this.scans = [];
-            } else {
-                _this.scans = value;
-            }
-            _this.putScans();
-        });
+        var value = localStorage.getItem("scans");
+        if (!value) {
+            _this.scans = [];
+        } else {
+            _this.scans = JSON.parse(value);
+        }
+        _this.putScans();
     };
 
     this.setScans = function () {
         var _this = this;
         var scans = _this.scans;
-        localforage.setItem("scans", scans).then(function (value) {
-            console.log("setScans done");
-            _this.putScans();
-        });
+        localStorage.setItem("scans", JSON.stringify(scans));
+        _this.putScans();
     };
 
     this.clearScans = function () {
