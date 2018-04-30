@@ -5,7 +5,7 @@ table.scan-history {
     width: 100%;
 }
 
-table.scan-history td, #customers th {
+table.scan-history td, table.scan-history th {
     border: 1px solid #ddd;
     padding: 8px;
 }
