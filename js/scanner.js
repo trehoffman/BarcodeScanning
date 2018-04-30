@@ -70,6 +70,8 @@
                 });
 
                 _scanner.putScans();
+            } else if (e.target.classList.contains('history-export-csv')) {
+                _scanner.exportScans();
             }
         });
 
@@ -186,6 +188,33 @@
         var _this = this;
         _this.scans = [];
         _this.setScans();
+    };
+
+    this.exportScans = function () {
+        var csv = '';
+        var table = document.querySelector('table.scan-history');
+        var rows = table.querySelectorAll('tr');
+        rows.forEach(function (item, index) {
+            var cells = item.querySelectorAll('td, th');
+            cells.forEach(function (item, index) {
+                var csvValue = "";
+                var anchorChildren = item.getElementsByTagName('a');
+                var buttonChildren = item.getElementsByTagName('button');
+                if (anchorChildren.length > 0) {
+                    csvValue = '"' + anchorChildren[0].innerText + '"';
+                } else if (buttonChildren.length > 0) {
+                    return;
+                } else {
+                    csvValue = '"' + item.innerText + '"';
+                }
+                csvValue += ',';
+                csv += csvValue;
+            });
+            csv += '\n';
+        });
+
+        var blob = new Blob([csv], { type: "text/plain;charset=utf-8" });
+        saveAs(blob, "BarcodeScanningHistory.csv");
     };
 }
 
