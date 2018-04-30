@@ -4,20 +4,26 @@
         <title>Barcode Scanning</title>
 	    <meta charset="utf-8" />
         <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+        <link rel="stylesheet" href="css/w3.css" />
+        <link rel="stylesheet" href="css/style.css" />
     </head>
     <body>
+        <h1>
+            BARCODE SCANNING
+        </h1>
         <div>
-            <input class="scan-input" type="text" placeholder="scan here" autofocus />
+            <input class="scan-input w3-input w3-border w3-animate-input" type="text" placeholder="scan here" autofocus />
         </div>
+        <h3>
+            HISTORY
+        </h3>
         <div>
-            <h1>
-                Scan History
-            </h1>
+            <input class="filter w3-input w3-border w3-padding" placeholder="search history..." />
             <table class="scan-history">
                 <thead>
                     <tr>
-                        <th>Time</th>
-                        <th>Data</th>
+                        <th><a href="#" class="sort" sortField="timestamp">Time <span class="sort-direction">&#9650;</span></a></th>
+                        <th><a href="#" class="sort" sortField="text">Data <span class="sort-direction"></span></a></th>
                         <th><button type="button" class="clear-scans">Clear</button></th>
                     </tr>
                 </thead>
