@@ -7,6 +7,29 @@
         <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
         <link rel="stylesheet" href="css/w3.css" />
         <link rel="stylesheet" href="css/style.css" />
+        <style>
+            /* In order to place the tracking correctly */
+            #interactive.viewport {
+                position:relative;
+                width:100%;
+            }
+
+            #interactive video {
+                width:100%;
+                max-width:400px;
+            }
+
+            #interactive canvas {
+                width:100%;
+                max-width:400px;
+            }
+
+            canvas.drawing, canvas.drawingBuffer {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        </style>
     </head>
     <body>
         <div class="topnav" id="myTopnav">
@@ -18,6 +41,12 @@
                 </div>
             </div>
             <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+        </div>
+
+        <div id="scanner-area">
+            <button type="button" class="w3-btn w3-block start">Start Camera Scanning</button> 
+            <button type="button" class="w3-btn w3-block stop">Stop Camera Scanning</button>
+            <div id="interactive" class="viewport"></div>
         </div>
 
         <div id="scanning-area">
@@ -39,6 +68,8 @@
                 </tbody>
             </table>
         </div>
+        <script src="js/quagga.min.js"></script>
+        <script src="js/live_w_locator.js"></script>
         <script src="js/FileSaver.min.js"></script>
         <script src="js/scanner.js"></script>
         <script>
