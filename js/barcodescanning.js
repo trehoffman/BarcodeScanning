@@ -1,6 +1,14 @@
 function BarcodeScanning(options) {
     var me = this;
     me.data = {};
+    me.elements = {
+        standardRadioButton: document.querySelector('input[type=radio][name=scan-type][value=standard]'),
+        cameraRadioButton: document.querySelector('input[type=radio][name=scan-type][value=camera]'),
+        scanInput: document.querySelector('input[name=scan-input]'),
+        maintainScanFocusInput: document.querySelector('input[type=checkbox][name=maintainscanfocus]'),
+        standardScanArea: document.querySelector('div.standard-scan-type'),
+        cameraScanArea: document.querySelector('div.camera-scan-type')
+    };
 
     me.init = function() {
         try {
@@ -15,8 +23,24 @@ function BarcodeScanning(options) {
         }
     };
 
+    me.startBarcodeScanner = function() {
+        me.stopBarcodeScanner();
+        me.html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", { fps: 10, qrbox: 250 });
+        me.html5QrcodeScanner.render(function(decodedText, decodedResult) {
+            console.log(decodedText, decodedResult);
+            me.addScan({
+                text: decodedText,
+                timestamp: new Date().getTime()
+            });
+        });
+    };
+
+    me.stopBarcodeScanner = function() {
+        if (me.html5QrcodeScanner) me.html5QrcodeScanner.clear();
+    };
+
     me.addScan = function(scan) {
-        console.log('addScan', scan);
         me.playAudio();
         me.data.scans.push(scan)
         me.saveScans();
@@ -40,6 +64,25 @@ function BarcodeScanning(options) {
     me.saveScans = function() {
         localStorage.setItem('scans', JSON.stringify(me.data.scans));
         me.populateHistory();
+    };
+
+    me.onChangeHandler = function(e) {
+        let target = e.target;
+        if (target === me.elements.standardRadioButton || target === me.elements.cameraRadioButton) {
+            if (me.elements.standardRadioButton.checked) {
+                me.stopBarcodeScanner();
+                me.elements.cameraScanArea.classList.add('w3-hide');
+                me.elements.standardScanArea.classList.remove('w3-hide');
+                me.elements.scanInput.focus();
+                return;
+            }
+            if (me.elements.cameraRadioButton.checked) {
+                me.elements.standardScanArea.classList.add('w3-hide');
+                me.elements.cameraScanArea.classList.remove('w3-hide');
+                me.startBarcodeScanner();
+                return;
+            }
+        }
     };
 
     me.onClickHandler = function(e) {
@@ -167,6 +210,7 @@ function BarcodeScanning(options) {
         });
 
         document.addEventListener('click', me.onClickHandler);
+        document.addEventListener('change', me.onChangeHandler);
     };
 
     me.init();

@@ -14,19 +14,27 @@
         </audio>
         <div class="w3-container">
             <h3 class="w3-center">Barcode Scanning <span class="toggle-sound">🔊</span></h3>
-            <div class="w3-row-padding">
-                <div class="w3-half">
-                    <input name="scan-input" class="w3-input" placeholder="scan here" autofocus />
-                </div>
-                <div class="w3-half">
-                    <input type="checkbox" name="maintainscanfocus" class="w3-check" /> Maintain Scan Focus
+            <div class="w3-center">
+                <input type="radio" name="scan-type" value="standard" class="w3-radio" checked /> Standard
+                <input type="radio" name="scan-type" value="camera" class="w3-radio" /> Camera
+            </div>
+            <div class="standard-scan-type">
+                <div class="w3-row-padding">
+                    <div class="w3-half">
+                        <input name="scan-input" class="w3-input" placeholder="scan here" autofocus />
+                    </div>
+                    <div class="w3-half">
+                        <input type="checkbox" name="maintainscanfocus" class="w3-check" /> Maintain Scan Focus
+                    </div>
                 </div>
             </div>
+            <div id="reader" width="600px" class="camera-scan-type w3-hide"></div>
             <div class="history-area"></div>
         </div>
         <script src="https://trehoffman.github.io/scandetector/js/scandetector.js"></script>
         <script src="js/FileSaver.min.js"></script>
         <script src="js/simple-datatables.js"></script>
+        <script src="https://unpkg.com/html5-qrcode"></script>
         <script src="js/barcodescanning.js"></script>
     </body>
 </html>
