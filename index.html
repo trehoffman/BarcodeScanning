@@ -5,54 +5,28 @@
 	    <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+        <link rel="stylesheet" href="css/simple-datatables.css" />
         <link rel="stylesheet" href="css/w3.css" />
-        <link rel="stylesheet" href="css/style.css" />
     </head>
     <body>
-        <div class="topnav" id="myTopnav">
-            <a href="#" class="active">Barcode Scanning</a>
-            <div class="dropdown">
-                <button class="dropbtn">History <i class="fa fa-caret-down">&#9660;</i></button>
-                <div class="dropdown-content">
-                    <a href="#" class="history-export-csv">Export to CSV</a>
+        <audio id="audio">
+            <source src="sounds/beep.mp3" type="audio/mp3">
+        </audio>
+        <div class="w3-container">
+            <h3 class="w3-center">Barcode Scanning <span class="toggle-sound">🔊</span></h3>
+            <div class="w3-row-padding">
+                <div class="w3-half">
+                    <input name="scan-input" class="w3-input" placeholder="scan here" autofocus />
+                </div>
+                <div class="w3-half">
+                    <input type="checkbox" name="maintainscanfocus" class="w3-check" /> Maintain Scan Focus
                 </div>
             </div>
-            <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+            <div class="history-area"></div>
         </div>
-
-        <div id="scanning-area">
-            <input class="scan-input w3-input w3-border w3-animate-input" type="text" placeholder="scan here" autofocus />
-        </div>
-
-        <div id="history-area">
-            <input class="filter w3-input w3-border w3-padding" placeholder="search history..." />
-            <table class="scan-history">
-                <thead>
-                    <tr>
-                        <th><a href="#" class="sort" sortField="timestamp">Time <span class="sort-direction">&#9650;</span></a></th>
-                        <th><a href="#" class="sort" sortField="text">Data <span class="sort-direction"></span></a></th>
-                        <th><button type="button" class="clear-scans">Clear</button></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!--POPULATE WITH SCAN HISTORY-->
-                </tbody>
-            </table>
-        </div>
+        <script src="https://trehoffman.github.io/scandetector/js/scandetector.js"></script>
         <script src="js/FileSaver.min.js"></script>
-        <script src="js/scanner.js"></script>
-        <script>
-            function myFunction() {
-                var x = document.getElementById("myTopnav");
-                if (x.className === "topnav") {
-                    x.className += " responsive";
-                } else {
-                    x.className = "topnav";
-                }
-            }
-
-            var scanner = new Scanner();
-            scanner.init();
-        </script>
+        <script src="js/simple-datatables.js"></script>
+        <script src="js/barcodescanning.js"></script>
     </body>
 </html>
