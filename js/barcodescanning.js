@@ -26,7 +26,7 @@ function BarcodeScanning(options) {
     me.startBarcodeScanner = function() {
         me.stopBarcodeScanner();
         me.html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10, qrbox: 250 });
+            "reader", { fps: 1, qrbox: 250 });
         me.html5QrcodeScanner.render(function(decodedText, decodedResult) {
             console.log(decodedText, decodedResult);
             me.addScan({
