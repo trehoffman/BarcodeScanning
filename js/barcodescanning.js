@@ -193,6 +193,7 @@ function BarcodeScanning(options) {
 
     me.startEventListeners = function() {
         document.querySelector('input[name="scan-input"]').addEventListener('scan', function(e) {
+            if (e.detail.value.length === 0) return;
             me.addScan({
                 text: e.detail.value,
                 timestamp: new Date().getTime()
